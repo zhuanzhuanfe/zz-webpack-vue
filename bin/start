@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const chalk = require('chalk');
+const exists = fs.existsSync;
+const inquirer = require('inquirer');
+const async = require('async');
+const cpFile = require('cpr');
+const rm = require('rimraf').sync;
+
+const pwd = process.cwd();
+const dir = path.join(pwd, 'webpack-vue');
+if (exists(dir)) {
+  rm(dir);
+}
+fs.mkdirSync(path.join(pwd, 'webpack-vue'));
+cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'temp'), path.join(pwd, 'webpack-vue'), () => {
+  console.log(`# ${chalk.green('配置文件更新完成')}`);
+  console.log('# ======================');
+  console.log();
+  console.log(`# dev命令，依赖全局的 webpack及webpack-dev-server工具
+    
+    ${chalk.yellow('webpack-dev-server --inline --progress --disable-host-check --public --config webpack-vue/build/dev.js')}
+      
+# build命令, 环境变量设置为NODE_ENV=production，推荐使用cross-env，可以兼容mac和windows
+    
+    ${chalk.yellow('node webpack-vue/build/build.js')}
+    ${chalk.yellow('cross-env NODE_ENV=production node webpack-vue/build/build.js')}
+      `);
+});

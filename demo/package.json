@@ -1,0 +1,32 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "模版示例",
+  "author": "yuanxiaolong@zhuanzhuan.com",
+  "private": true,
+  "scripts": {
+    "dev": "webpack-dev-server --inline --progress --disable-host-check --public --config build/dev.js",
+    "start": "npm run dev",
+    "build": "cross-env NODE_ENV=production node build/build.js",
+    "proxy": "node proxy/index.js"
+  },
+  "dependencies": {
+    "vue-router": "3.0.1",
+    "vuex": "3.0.1",
+    "vue-lazyload": "1.0.3",
+    "vue-touch": "git+https://github.com/vuejs/vue-touch.git#next_old"
+  },
+  "devDependencies": {
+    "zz-webpack-vue": "^1.0.0"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 4 versions", 
+    "Firefox ESR", 
+    "not ie < 9"
+  ]
+}

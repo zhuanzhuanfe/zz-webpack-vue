@@ -1,0 +1,52 @@
+<style>
+  .loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .loading.off {
+    display: none;
+  }
+
+  .loading .loading-indicator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -60px;
+    margin-top: -50px;
+    width: 120px;
+    height: 100px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .loading .loading-indicator:after {
+    display: block;
+    content: ' ';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -18px;
+    margin-top: -18px;
+    width: 36px;
+    height: 36px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAATMSURBVFiFzZjLa11VFMZ/303SJLXVvpLUPuxTHRQp7aQFLThSkCI4cOpIHPsHOHEuOCmITgV14kREqBShOBJqQrFKW1KTJvTdNH3k3fZ8DtY6ybHm3HtJMnDBJfvkrL3Wt/Z67iNWSbafB/bm46ikh6uR12hT6TrbnTWv9wGb87evZn+n7XXt6KpTUhU2AOwAZm2PSJp/hqWjZl3u706gvbavS7q1YkBFUQg4AKwDXgAMXGplxDO0D9ie696iKG43Gg3XMTd1mSQB80CRYLba3tIukuTdknsLYCFl1lIrQAUwno8FcVI7bHe1AaaLcPW63AswljJXBijpLjAJKAVvBba1sW9b8ha5dzJlNaWWgNKiUZbcJmC77d5keVphfwpgez0RN2LJXaOtTgcqQW17E7ATmAauS1qovJuSdB14KRWsB3qAWeAqULrwav7tTh4TmTdme6qqOMvADuA54Jqk+6QFZWq+li9JRePAbUlPKzyHgA3AfeCypDlYzEbK7LHdA7wCbEoD/yx5bXcA/cBuoDzlaeAPSfOqCDicVj1Jpg7gXlr9SFKRVm3I58f1B78Y1BuBKUkLthv5vIfIvNLVncAMcF7SnCoC+sgClv8qg5E88qvN6kczKopCkvYQLodwZRm/s8CIpDslOgAk3bE9Tfi1j4iR0ordkm4CcysBJKmbcFFJnSnrDhGvM9UX1Y0zwLDtu8CLhK+7iJhpmSFNqCBOYhPwGLgJ3CgD+V8Y6iRk8G0mTuqBpEerAITtjUT7mQMmy2T535NsHwY+ImaaKuoOoiB+Jen8WiirzE69RGAv4iBcOirbp4GDLDM6JMBh4GSrNG9FmWnHiFq3XKgYmG6wVE2Xo458v6J0r6G6uBWEy44DHxPInz3GaeBzSb+tBRLbm4H91Hvj77XQs6bULO17gKNELfpL0uXVKMphrY9oEzckPVmOb9kR1vYR4G3gTeB5YMj2J5ImVwimBzhOFNt5YNT2cFb/ekC2dwHvAieAAaKI3SdSta1bQw11EFW6bD37gQHbY8Cl6tWpExZT8g3gw7QCIqA7Cbd+Q/SdFZHtGUkXiBEHon30Aq8CO20P2h5vNBoux48+4DOiAZaNrhsYAr4FLkh6nEPcfuCKpActQPQSU+MtSTM5fvQnqO0sjTldwCPgZ0nTVZfNAgvEWHAb+A74VdJ0KhgAPk3Qg7ZPlXesVFaOu2VFfosYZyZsf58G3LQ9QcxEh4hSU+SJGdJlOXp8CbwHXAF+lDRRsbaTiK2DRL04RIy7t2zvBd5Jvp8kjRID2C7C3f3AUdtnJRVZ8YdtXyOmyi3AxXIEqc5DQ+mi5egAcJIIyl5gDChvoCeBl3PdAE4BD4GJBLUAHAEuAjcq+maB//TIlreOHEU/SPCNVHBG0rVk6WGpvfSksnvABeI0RWTZiRxpmlI797LXCQsLItDPAWermGvWF4lWUF4U9xAuWjmgPJ33U2AX4YYf2hnW0iWDwBRLTfpYk68orQGlkH7CFd3A77bPtQKzuNkeAUYIY7pY+mBRS03RSnpi+wsiw8aBr5e5eahmTaPRsO2zRCxtBQZbja4tvw9J+sX2EDBfvR1UaLZmXe5/aPsM0FXWtFUBSqHNmupp4gJYrpfbv0BkZ0v6B8pFBLOLEIWnAAAAAElFTkSuQmCC) no-repeat 50% 50%;
+    -webkit-animation: rotate 1s linear infinite;
+  }
+
+  @-webkit-keyframes rotate {
+    from {
+      -webkit-transform: rotateZ(0deg);
+    }
+    to {
+      -webkit-transform: rotateZ(360deg);
+    }
+  }
+</style>
+<div class="loading">
+  <div class="loading-indicator"></div>
+</div>

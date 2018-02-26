@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const chalk = require('chalk');
+const exists = fs.existsSync;
+const inquirer = require('inquirer');
+const async = require('async');
+const cpFile = require('cpr');
+const rm = require('rimraf').sync;
+
+const pwd = process.cwd();
+const dir = path.join(pwd, 'webpack-vue-demo');
+if (exists(dir)) {
+  rm(dir);
+}
+fs.mkdirSync(path.join(pwd, 'webpack-vue-demo'));
+
+cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'demo'), path.join(pwd, 'webpack-vue-demo'), () => {
+  console.log(`# ${chalk.green('初始化项目模版完成')}`);
+  console.log('# ======================');
+  console.log();
+  console.log(`# ${chalk.green('开始运行：')}`);
+  console.log();
+  console.log(`   cd webpack-vue-demo`);
+  console.log(`   npm run dev`);
+});
