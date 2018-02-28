@@ -6,7 +6,7 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const mixin = require('assign-deep')
 const resolve =  global._WEBPACK_RESOLVE
 const entries = utils.getEntry([resolve('src/pages/**/*.js')]); // 获得多页面的入口js文件
-const pages = utils.getEntry([resolve('template/**/*.{ejs, html, htm}')]);
+const pages = utils.getEntry([resolve('template/**/*.ejs'), resolve('template/**/*.html'), resolve('template/**/*.htm')]);
 if(pages['index'] && entries['index']) {
   delete config.base.entry['app'];
 }

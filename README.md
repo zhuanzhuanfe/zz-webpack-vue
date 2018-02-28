@@ -1,5 +1,5 @@
-# zz-webpack-react ![version](https://img.shields.io/badge/version-1.0.7-blue.svg?style=flat-square)
-> react版`webpack`打包工具，主要提供公共`webpack`配置，快速接入最新最优`webpack`配置
+# zz-webpack-vue ![version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=flat-square)
+> vue版`webpack`打包工具，主要提供公共`webpack`配置，快速接入最新最优`webpack`配置
 
 ## 前言
 
@@ -40,6 +40,7 @@ $ npm i -D zz-webpack-vue
 # 或
 $ yarn add zz-webpack-vue
 ````
+
 ### 初始化-已有项目
 在当前目录中生成配置文件
 
@@ -52,48 +53,24 @@ $ node_modules/zz-webpack-vue/bin/start
 # dev命令，依赖全局的 webpack及webpack-dev-server工具
 $ webpack-dev-server --inline --progress --disable-host-check --public --config webpack-vue/build/dev.js
 
-# build命令, 环境变量设置为：NODE_ENV=production，推荐使用cross-env，可以兼容mac和windows
+# build命令, 如果需要设置环境变量为：NODE_ENV=production，推荐使用cross-env，可以兼容mac和windows
 $ node webpack-react/build/build.js
 $ cross-env NODE_ENV=production node webpack-vue/build/build.js
 ````
+
 ### 初始化-新项目
 在当前目录中生成新项目模版
 ````bash
 $ node_modules/zz-webpack-vue/bin/init
 ````
-demo目录结构如下：
 
-```file
-my-project
-  |__ build         // webpack使用
-  |     |__  build.js   // npm run build 执行文件
-  |     |__  index.js   // 公共配置文件
-  |     |__  dev.js     // npm run dev 执行文件
-  |__ config        // webpack及离线包的配置文件
-  |     |__  index.js   // webpack配置文件
-  |__ src           // 项目逻辑代码
-  |     |__  assets     // 静态资源，例如图片，公共样式
-  |     |__  components // 组件及页面
-  |     |__  lib        // 第三方库
-  |     |__  router     // 路由文件夹，当使用路由功能时，相关代码放在router文件夹中
-  |     |__  store      // 当使用 redux 时，相关代码放在store文件夹中    
-  |     |__  pages      // 多页面应用是存放页面，配合文件名必须与template中模版名称一致（多页面应用时需要）
-  |     |__  App.vue     // 入口文件模版（单页面应用时需要）
-  |     |__  main.js     // 入口文件
-  |__ template      // 模版文件目录
-  |     |__  common // 公共模版
-  |     |__  index.ejs // 模版文件
-  |__ .babelrc      // babel配置文件
-  |__ .editorconfig // 编辑器格式化配置文件
-  |__ .eslintrc.js  // eslint 配置文件
-  |__ .gitignore    // 忽略上传gitlab的文件
-  |__ .postcss.js   // postcss配置
-  |__ package.json  // 项目配置文件
-  |__ README.md     // 项目说明使用文档
-```
 #### 执行命令
 
 ````bash
+# 进入新项目
+$ cd webpack-vue-demo
+# 安装依赖
+$ npm install
 # 开发
 $ npm run dev
 # 打包

@@ -5,10 +5,9 @@
   "author": "yuanxiaolong@zhuanzhuan.com",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --disable-host-check --public --config build/dev.js",
+    "dev": "webpack-dev-server --inline --progress --public --config build/dev.js",
     "start": "npm run dev",
-    "build": "cross-env NODE_ENV=production node build/build.js",
-    "proxy": "node proxy/index.js"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "vue-router": "3.0.1",
@@ -17,7 +16,7 @@
     "vue-touch": "git+https://github.com/vuejs/vue-touch.git#next_old"
   },
   "devDependencies": {
-    "zz-webpack-vue": "^1.0.0"
+    "zz-webpack-vue": "^1.0.1"
   },
   "engines": {
     "node": ">= 4.0.0",

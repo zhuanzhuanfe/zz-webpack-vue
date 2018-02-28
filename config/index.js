@@ -1,11 +1,9 @@
 'use strict'
-
 const path = require('path')
 const mixin = require('assign-deep')
 const resolve = global._WEBPACK_RESOLVE
 
 module.exports = (config) => {
-  // config.dev.assetsSubDirectory = resolve(config.dev.assetsSubDirectory)
   let cfg = {
     base: mixin({
       entry:{

@@ -2,9 +2,6 @@
 */.DS_Store
 */*/.DS_Store
 */*/*/.DS_Store
-.vscode/
 node_modules/
-demo/
 package-lock.json
-webpack-vue/
-webpack-vue-demo/
+.vscode/

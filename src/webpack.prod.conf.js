@@ -14,7 +14,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets- nwebpack-plugin')
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const entries = utils.getEntry([resolve('src/pages/**/*.js')]); // 获得多页面的入口js文件
-const pages = utils.getEntry([resolve('template/**/*.{ejs, html, htm}')]);
+const pages = utils.getEntry([resolve('template/**/*.ejs'), resolve('template/**/*.html'), resolve('template/**/*.htm')]);
 
 const env =  require('../config/prod.env')
 const webpackConfig = {
@@ -104,7 +104,6 @@ const htmlConf = (page = '', pathname = 'index') => {
       removeAttributeQuotes: true
     }
   };
-  if(inlineRegExp) conf.inlineSource = inlineRegExp;
   return conf;
 }
 // 配置多页面或单页面应用模版
@@ -135,10 +134,8 @@ webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
 }));
 
 // chunk公共样式提取
-// console.log(pages);
 webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
   name: Object.keys(pages).length ? Object.keys(pages) : 'app',
-  // filename:'[name].bundle.js',
   async: 'vendor-async',
   children: true,
   minChunks: 2
@@ -161,16 +158,7 @@ if (config.build.imagemin) {
   )
 }
 
-// 开启badjs异常上报
-if(config.build.badjs && config.build.badjs > 0) {
-  const BadjsWebpackPlugin = require('@zz-yy/badjs-webpack-plugin')
-  // TODO 监控erro 上线打开，测试注释掉
-  webpackConfig.plugins.push(new BadjsWebpackPlugin({id: config.build.badjs}))
-  webpackConfig.output.crossOriginLoading = 'anonymous'
-}
-
 if(exists(resolve('static'))) {
-  // copy custom static assets
   webpackConfig.plugins.push(
     new CopyWebpackPlugin([
       {

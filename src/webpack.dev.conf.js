@@ -9,7 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vConsolePlugin = require('vconsole-webpack-plugin')
 const entries = utils.getEntry([resolve('src/pages/**/*.js')]); // 获得多页面的入口js文件
-const pages = utils.getEntry([resolve('template/**/*.{ejs, html, htm}')]);
+const pages = utils.getEntry([resolve('template/**/*.ejs'), resolve('template/**/*.html'), resolve('template/**/*.htm')]);
 const resolve = global._WEBPACK_RESOLVE
 
 let webpackDevConfig = {
@@ -37,7 +37,8 @@ let webpackDevConfig = {
     } : false,
     publicPath: config.dev.assetsPublicPath,
     proxy: config.dev.proxyTable,
-    quiet: true, 
+    quiet: true,
+    disableHostCheck: true, // host检查
     watchOptions: {
       poll: config.dev.poll,
     }
@@ -60,7 +61,6 @@ let webpackDevConfig = {
 }
 
 const htmlConf = (page = '', pathname = 'app') => {
-  // console.log(page);
   const conf = {
     filename: `${pathname === 'app' ? 'index' : pathname}.html`,
     template: page || (exists(resolve('index.ejs')) ? resolve('index.ejs') : resolve('index.html')), // 模板路径
