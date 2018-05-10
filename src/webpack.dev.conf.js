@@ -8,9 +8,9 @@ const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vConsolePlugin = require('vconsole-webpack-plugin')
+const resolve = global._WEBPACK_RESOLVE
 const entries = utils.getEntry([resolve('src/pages/**/*.js')]); // 获得多页面的入口js文件
 const pages = utils.getEntry([resolve('template/**/*.ejs'), resolve('template/**/*.html'), resolve('template/**/*.htm')]);
-const resolve = global._WEBPACK_RESOLVE
 
 let webpackDevConfig = {
   module: {
