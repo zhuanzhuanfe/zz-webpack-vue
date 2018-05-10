@@ -9,7 +9,8 @@ module.exports = {
       },
       externals: {}, // 排除部分第三方组件不打包
       cssExtract: false,
-      cssModule: false // css module自动关闭，部分组件库使用此功能会加载不了样式，例如antd
+      cssModule: false, // css module自动关闭，部分组件库使用此功能会加载不了样式，例如antd
+      alias: {}
     },
     // 开发模式配置
     dev:{
@@ -30,6 +31,6 @@ module.exports = {
       jsSourceMap: true,
       assetsRoot: path.resolve(process.cwd(), 'dist'), // 打包生成的文件存放目录
       inline:['app.css', 'manifest.js'], // 自定义内联静态资源
-      performance: true // 性能限制，默认首次加载js+css不能超过400k, 单个文件大小不超过: 300k，也能是对象 {maxEntrypointSize: 400000, maxAssetSize: 300000}
+      performance: true, // 性能限制，默认首次加载js+css不能超过400k, 单个文件大小不超过: 300k，也能是对象 {maxEntrypointSize: 400000, maxAssetSize: 300000},
     }
 }
