@@ -20,5 +20,6 @@ cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'demo'), path.join(pwd, 
   console.log(`# ${chalk.green('开始运行：')}`);
   console.log();
   console.log(`   cd webpack-vue-demo`);
+  console.log(`   npm install`);
   console.log(`   npm run dev`);
 });

@@ -75,7 +75,8 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
     "ejs-compiled-loader": "^2.0.0",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "cssnano-preset-advanced": "^4.0.0-rc.2"
   },
   "license": "ISC"
 }
