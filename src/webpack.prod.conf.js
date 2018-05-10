@@ -11,7 +11,7 @@ const merge = require('webpack-merge')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets- nwebpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const entries = utils.getEntry([resolve('src/pages/**/*.js')]); // 获得多页面的入口js文件
 const pages = utils.getEntry([resolve('template/**/*.ejs'), resolve('template/**/*.html'), resolve('template/**/*.htm')]);
@@ -67,12 +67,9 @@ const webpackConfig = {
       allChunks: false,
     }),
     new OptimizeCSSPlugin({
-      assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano')({ zindex: false }),
       cssProcessorOptions: {
-        safe: true,
-        map: { inline: false },
-        discardComments: { 
+        discardComments: {
           removeAll: true
         }
       }
@@ -101,15 +98,15 @@ if(inline) {
   }
 }
 
-const htmlConf = (page = '', pathname = 'index') => {
+const htmlConf = (page = '', pathname = 'app') => {
   const conf = {
     filename: `${config.build.web}/${pathname === 'app' ? 'index' : pathname}.html`,
-    template: page || (exists(resolve('index.ejs')) ? resolve('index.ejs') : resolve('index.html')), // 模板路径'
+    template: page || (exists(resolve('index.ejs')) ? resolve('index.ejs') : resolve('index.html')), // 模板路径
     inlineSource: inlineRegExp || '',
     inject: true, // js插入位置
     chunksSortMode: 'dependency',
     chunks: ['manifest', 'vendor', pathname],
-    hash: true,
+    hash: false,
     minify: {
       removeComments: true,
       collapseWhitespace: true,

@@ -5,7 +5,7 @@ module.exports = {
       // 入口文件配置
       entry:{
         vendor:['vue'],
-        app: path.join(process.cwd(), 'src/app')
+        app: path.join(process.cwd(), 'src/main.js')
       },
       externals: {}, // 排除部分第三方组件不打包
       cssExtract: false,
