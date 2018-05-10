@@ -1,6 +1,6 @@
 {
   "name": "zz-webpack-vue",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "webpack打包工具Vue版",
   "main": "index.js",
   "scripts": {
