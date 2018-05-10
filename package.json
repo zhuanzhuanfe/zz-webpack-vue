@@ -1,11 +1,12 @@
 {
   "name": "zz-webpack-vue",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "webpack打包工具Vue版",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "git+git@github.com:zhuanzhuanfe/zz-webpack-vue.git",
   "bin": {
     "webpack-vue-start": "bin/start",
     "webpack-vue-init": "bin/init"
@@ -14,6 +15,10 @@
     "webpack",
     "vue"
   ],
+  "bugs": {
+    "url": "https://github.com/zhuanzhuanfe/zz-webpack-vue/issues"
+  },
+  "homepage": "https://github.com/zhuanzhuanfe/zz-webpack-vue/master#README",
   "author": "yuanxiaolong@zhuanzhuan.com",
   "dependencies": {
     "vue": "2.5.10",
