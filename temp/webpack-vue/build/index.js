@@ -4,4 +4,6 @@ let webpackVue = require('zz-webpack-vue')
 let config = require('../config/index.js')
 module.exports = webpackVue(config).then(res => {
   return res
+}).catch(err => {
+  console.log(err);
 })

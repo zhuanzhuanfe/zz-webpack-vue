@@ -24,7 +24,10 @@ module.exports = {
       extensions: ['.js', '.vue', '.json'],
       alias: Object.assign({
         'vue$': 'vue/dist/vue.js',
-        '@models': resolve('build/models')
+        '@models': resolve('build/models'),
+        '@src': resolve('src'),
+        '@components': resolve('src/components'),
+        '@lib': resolve('src/lib'),
       }, config.base.alias)
     },
     module: {

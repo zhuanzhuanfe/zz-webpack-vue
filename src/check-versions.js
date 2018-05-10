@@ -7,21 +7,15 @@ function exec (cmd) {
   return require('child_process').execSync(cmd).toString().trim()
 }
 
-const versionRequirements = [
-  {
+const versionRequirements = []
+
+if (packageConfig.engines && packageConfig.engines.node) {
+  versionRequirements.push({
     name: 'node',
     currentVersion: semver.clean(process.version),
     versionRequirement: packageConfig.engines.node
-  }
-]
-
-// if (shell.which('npm')) {
-//   versionRequirements.push({
-//     name: 'npm',
-//     currentVersion: exec('npm --version'),
-//     versionRequirement: packageConfig.engines.npm
-//   })
-// }
+  })
+}
 
 module.exports = function () {
   const warnings = []

@@ -25,12 +25,12 @@ const webpackConfig = {
   },
   module: {
     rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
+      sourceMap: config.build.cssSourceMap || false,
       extract: config.base.cssExtract || false,
       usePostCSS: true
     })
   },
-  devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  devtool: config.build.jsSourceMap || config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -59,7 +59,7 @@ const webpackConfig = {
         // 提取出出现多次但是没有定义成变量去引用的静态值
         reduce_vars: true,
       },
-      sourceMap: config.build.productionSourceMap
+      sourceMap: config.build.jsSourceMap || config.build.productionSourceMap
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh|en/),
     new ExtractTextPlugin({
@@ -67,14 +67,26 @@ const webpackConfig = {
       allChunks: false,
     }),
     new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap
-      ? { safe: true, map: { inline: false } }
-      : { safe: true }
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano')({ zindex: false }),
+      cssProcessorOptions: {
+        safe: true,
+        map: { inline: false },
+        discardComments: { 
+          removeAll: true
+        }
+      }
     }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin()
   ]
 }
+
+// js处理
+webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  name: ['manifest', 'vendor'].reverse(),
+  minChunks:Infinity
+}));
 
 const inline = config.build.inline
 let regRxpArr = []
@@ -104,6 +116,14 @@ const htmlConf = (page = '', pathname = 'index') => {
       removeAttributeQuotes: true
     }
   };
+  // chunk公共样式提取
+  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: pathname,
+    // filename:'[name].bundle.js',
+    async: `${pathname}-async`,
+    children: true,
+    minChunks: 2
+  }));
   return conf;
 }
 // 配置多页面或单页面应用模版
@@ -127,35 +147,14 @@ if(entries && entriesKeys.length && mutiPage) {
 }
 webpackConfig.plugins.push(new HtmlWebpackInlineSourcePlugin());
 
-// js处理
-webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  name: ['manifest', 'vendor'].reverse(),
-  minChunks:Infinity
-}));
-
-// chunk公共样式提取
-webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  name: Object.keys(pages).length ? Object.keys(pages) : 'app',
-  async: 'vendor-async',
-  children: true,
-  minChunks: 2
-}));
-
 // 开启性能限制
-if(config.build.performance) {
+const performance = config.build.performance;
+if(performance) {
   webpackConfig.performance = {
     hints: 'error',
-    maxEntrypointSize: 400000,
-    maxAssetSize: 300000
+    maxEntrypointSize: (typeof performance === 'object' && performance.maxEntrypointSize) || 400000,
+    maxAssetSize: (typeof performance === 'object' && performance.maxAssetSize) || 300000
   }
-}
-
-// 开启图片压缩
-if (config.build.imagemin) {
-  const ImageminPlugin = require('imagemin-webpack-plugin').default
-  webpackConfig.plugins.push(
-    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
-  )
 }
 
 if(exists(resolve('static'))) {

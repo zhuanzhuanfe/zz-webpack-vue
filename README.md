@@ -1,4 +1,4 @@
-# zz-webpack-vue ![version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=flat-square)
+# zz-webpack-vue ![version](https://img.shields.io/badge/version-1.0.2-blue.svg?style=flat-square)
 > vue版`webpack`打包工具，主要提供公共`webpack`配置，快速接入最新最优`webpack`配置
 
 ## 前言
@@ -54,7 +54,6 @@ $ node_modules/zz-webpack-vue/bin/start
 $ webpack-dev-server --inline --progress --disable-host-check --public --config webpack-vue/build/dev.js
 
 # build命令, 如果需要设置环境变量为：NODE_ENV=production，推荐使用cross-env，可以兼容mac和windows
-$ node webpack-react/build/build.js
 $ cross-env NODE_ENV=production node webpack-vue/build/build.js
 ````
 
@@ -91,10 +90,13 @@ module.exports = {
     base:{
       // 入口文件配置
       entry:{
-        vendor:['vue', 'vue-router'],
-        app: path.resolve(process.cwd(), 'src/main')
+        vendor:['react', 'react-dom'],
+        app: path.join(process.cwd(), 'src/app')
       },
-      cssExtract: false // 提取css为单独的css文件，或者跟随chunk代码自动嵌入 <head>中，默认false，跟随chunk
+      externals: {}, // 排除部分第三方组件不打包
+      cssModule: false, // css module自动关闭，部分组件库使用此功能会加载不了样式，例如antd
+      cssExtract: false, // 提取css为单独的css文件，或者跟随chunk代码自动嵌入 <head>中，默认false，跟随chunk
+      alias: {} // 设置别名
     },
     // 开发模式配置
     dev:{
@@ -109,12 +111,12 @@ module.exports = {
     },
     // 构建模式配置
     build:{
-      web: 'webserver', // 存放所有的html文件
-      staticCdn: 'img.static.com.cn', // 静态资源域名
+      web: "webserver", // 存放所有的html文件
+      assetsPublicPath: 'https://img.static.com.cn/', // 静态资源路径
       bundleAnalyzerReport: false, // 开启代码分析报告功能，true/false，也可使用命令 npm run build --report
-      productionSourceMap: true,   // 开启生成sourcemap功能，true/false
+      cssSourceMap: false, // 控制css的sourcemap
+      jsSourceMap: true, // 控制js的sourcemap
       assetsRoot: path.resolve(process.cwd(), 'dist'), // 打包生成的文件存放目录
-      imagemin: true, // 开启图片压缩， true/false
       inline:['app.css', 'manifest.js'], // 自定义内联静态资源
       performance: true // 性能限制，首次加载js+css不能超过400k, 单个文件大小不超过: 300k
     }

@@ -10,13 +10,10 @@ const cpFile = require('cpr');
 const rm = require('rimraf').sync;
 
 const pwd = process.cwd();
-const dir = path.join(pwd, 'webpack-vue-demo');
-if (exists(dir)) {
-  rm(dir);
-}
-fs.mkdirSync(path.join(pwd, 'webpack-vue-demo'));
-
-cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'demo'), path.join(pwd, 'webpack-vue-demo'), () => {
+cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'demo'), path.join(pwd, 'webpack-vue-demo'), {
+  deleteFirst: true, //Delete "to" before
+  overwrite: true, //If the file exists, overwrite it
+},  () => {
   console.log(`# ${chalk.green('初始化项目模版完成')}`);
   console.log('# ======================');
   console.log();

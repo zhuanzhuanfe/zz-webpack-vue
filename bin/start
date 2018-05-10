@@ -10,12 +10,12 @@ const cpFile = require('cpr');
 const rm = require('rimraf').sync;
 
 const pwd = process.cwd();
-const dir = path.join(pwd, 'webpack-vue');
-if (exists(dir)) {
-  rm(dir);
-}
+cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'temp', '.postcssrc.js'), path.join(pwd), {
+  deleteFirst: true, //Delete "to" before
+  overwrite: true, //If the file exists, overwrite it
+});
 fs.mkdirSync(path.join(pwd, 'webpack-vue'));
-cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'temp'), path.join(pwd, 'webpack-vue'), () => {
+cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'temp', 'webpack-vue'), path.join(pwd, 'webpack-vue'), () => {
   console.log(`# ${chalk.green('配置文件更新完成')}`);
   console.log('# ======================');
   console.log();
@@ -24,8 +24,6 @@ cpFile(path.join(pwd, 'node_modules', 'zz-webpack-vue', 'temp'), path.join(pwd, 
     ${chalk.yellow('webpack-dev-server --inline --progress --disable-host-check --public --config webpack-vue/build/dev.js')}
       
 # build命令, 环境变量设置为NODE_ENV=production，推荐使用cross-env，可以兼容mac和windows
-    
-    ${chalk.yellow('node webpack-vue/build/build.js')}
     ${chalk.yellow('cross-env NODE_ENV=production node webpack-vue/build/build.js')}
       `);
 });

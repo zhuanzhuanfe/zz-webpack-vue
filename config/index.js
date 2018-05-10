@@ -10,8 +10,10 @@ module.exports = (config) => {
         vendor:['vue'],
         app: resolve('src/main.js')
       },
-      cssExtract:false,
-      alias: {}
+      externals: {}, // 排除部分第三方组件不打包
+      cssExtract: false,
+      cssModule: false, // css module自动关闭，部分组件库使用此功能会加载不了样式，例如antd
+      alias: {} // 设置别名
     }, config.base || {}),
     dev: mixin({
       https: false,
@@ -26,39 +28,19 @@ module.exports = (config) => {
       autoOpenBrowser: false,
       errorOverlay: true,
       notifyOnErrors: true,
-      poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-  
-      // Use Eslint Loader?
-      // If true, your code will be linted during bundling and
-      // linting errors and warnings will be shown in the console.
+      poll: false,
       useEslint: true,
-      // If true, eslint errors and warnings will also be shown in the error overlay
-      // in the browser.
       showEslintErrorsInOverlay: false,
   
       /**
        * Source Maps
        */
-  
-      // https://webpack.js.org/configuration/devtool/#development
       devtool: 'eval-source-map',
-  
-      // If you have problems debugging vue-files in devtools,
-      // set this to false - it *may* help
-      // https://vue-loader.vuejs.org/en/options.html#cachebusting
       cacheBusting: true,
-  
-      // CSS Sourcemaps off by default because relative paths are "buggy"
-      // with this option, according to the CSS-Loader README
-      // (https://github.com/webpack/css-loader#sourcemaps)
-      // In our experience, they generally work as expected,
-      // just be aware of this issue when enabling this option.
       cssSourceMap: false,
       vconsole: false
     },config.dev || {}),
     build: mixin({
-      // 异常上报
-      badjs: 0,
       web: 'webserver',
       // Paths
       assetsRoot: resolve('/dist'),
@@ -68,26 +50,16 @@ module.exports = (config) => {
       /**
        * Source Maps
        */
-      productionSourceMap: true,
-      // https://webpack.js.org/configuration/devtool/#production
+      // productionSourceMap: true,
+      cssSourceMap: false,
+      jsSourceMap: true,
       devtool: '#source-map',
-  
-      // Gzip off by default as many popular static hosts such as
-      // Surge or Netlify already gzip all static assets for you.
-      // Before setting to `true`, make sure to:
-      // npm install --save-dev compression-webpack-plugin
       productionGzip: false,
       productionGzipExtensions: ['js', 'css'],
-  
-      // Run the build command with an extra argument to
-      // View the bundle analyzer report after build finishes:
-      // `npm run build --report`
-      // Set to `true` or `false` to always turn it on or off
       bundleAnalyzerReport: false,
-      imagemin: true,
       // 是否内嵌css和manifest文件
       inline:['app.css', 'manifest.js'],
-      performance: true
+      performance: true // 性能限制，默认首次加载js+css不能超过400k, 单个文件大小不超过: 300k，也能是对象 {maxEntrypointSize: 400000, maxAssetSize: 300000}
     }, config.build || {})
   }
 

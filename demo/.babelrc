@@ -9,9 +9,11 @@
           "Firefox ESR", 
           "not ie < 9"
         ]
-      }
+      },
+      "debug": false,
+      "useBuiltIns": true
     }],
     "stage-2"
   ],
-  "plugins": ["transform-vue-jsx", "transform-runtime", "transform-object-assign"]
+  "plugins": ["transform-vue-jsx"]
 }

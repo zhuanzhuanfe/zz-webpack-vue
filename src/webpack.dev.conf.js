@@ -66,7 +66,7 @@ const htmlConf = (page = '', pathname = 'app') => {
     template: page || (exists(resolve('index.ejs')) ? resolve('index.ejs') : resolve('index.html')), // 模板路径
     inject: true, // js插入位置
     chunksSortMode: 'dependency',
-    chunks: ['vendor', pathname]
+    chunks: ['vendor', pathname].reverse()
   };
   return conf;
 }
