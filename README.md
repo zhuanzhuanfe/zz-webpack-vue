@@ -1,4 +1,4 @@
-# zz-webpack-vue ![version](https://img.shields.io/badge/version-1.0.10-blue.svg?style=flat-square)
+# zz-webpack-vue ![version](https://img.shields.io/badge/version-1.1.0-blue.svg?style=flat-square)
 > vue版`webpack`打包工具，主要提供公共`webpack`配置，快速接入最新最优`webpack`配置
 
 ## 前言
