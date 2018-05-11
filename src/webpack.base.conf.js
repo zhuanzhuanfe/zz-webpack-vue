@@ -10,7 +10,7 @@ const pages = utils.getEntry([resolve('template/**/*.ejs'), resolve('template/**
 if(pages['index'] && entries['index']) {
   delete config.base.entry['app'];
 }
-module.exports = {
+let baseWebpackConfig = {
     context:resolve(),
     entry: mixin(config.base.entry, entries),
     output: {
@@ -83,3 +83,9 @@ module.exports = {
       ]
     }
   }
+
+  if (Object.keys(config.base.merge).length) {
+    baseWebpackConfig = merge(baseWebpackConfig, config.base.merge);
+  }
+
+  module.exports = baseWebpackConfig

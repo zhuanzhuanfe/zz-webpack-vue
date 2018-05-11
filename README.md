@@ -75,6 +75,7 @@ $ npm run dev
 # 打包
 $ npm run build
 ````
+
 ## webpack动态修改
 
 主要是执行webpack功能及动态修改webpack配置
@@ -107,7 +108,8 @@ module.exports = {
       proxyTable: {}, // 代理
       autoOpenBrowser: true, // 启动时自动打开浏览器，默认开启，true/false
       useEslint: true , // 开启eslint验证，配置模版时选择开启或关闭，true/false
-      vconsole: false // 开启调试模式，默认关闭，true/false
+      vconsole: false, // 开启调试模式，默认关闭，true/false
+      merge: {} //定义的webpack配置
     },
     // 构建模式配置
     build:{
@@ -118,7 +120,8 @@ module.exports = {
       jsSourceMap: true, // 控制js的sourcemap
       assetsRoot: path.resolve(process.cwd(), 'dist'), // 打包生成的文件存放目录
       inline:['app.css', 'manifest.js'], // 自定义内联静态资源
-      performance: true // 性能限制，首次加载js+css不能超过400k, 单个文件大小不超过: 300k
+      performance: true, // 性能限制，首次加载js+css不能超过400k, 单个文件大小不超过: 300k
+      merge: {} //定义的webpack配置
     }
 }
 ```
@@ -136,11 +139,13 @@ module.exports = {
 * 本项目下虽然所有的webpack都可以替换成以前各个项目自己的配置文件，但为了统一性，不建议完全替换配置文件，应该遵循本插件配置文件规则
 
 ### 引入webpack插件
+* 方法一
+
 路径：`build/index.js`
 
 ````javascript
 // 引入 webpack 打包工具
-let webpackVue = require('zz-webpack-vue')
+let webpackVue = require('zz-webpack-react')
 // webpack公共配置
 let config = require('../config/index.js')
 module.exports = webpackVue(config).then(res => {
@@ -148,13 +153,49 @@ module.exports = webpackVue(config).then(res => {
   // 可重写公共webpack配置文件, 例如
   res.baseWebpackConfig.entry = {
     // 自定义重写
-    vendor:['vue', 'vue-router'],
-    app:'./src/main'
+    vendor:['react', 'react-dom'],
+    app:'./src/app.js'
   }
   // 也可使用 webpack-merge 进行配置合并
   return res
 })
 ````
+
+* 方法二
+
+直接修改`config/index.js`配置
+
+例如：
+  ```javascript
+    module.exports = {
+      base: {
+        ...
+        merge: {
+          entry: {
+            vendor:['react', 'react-dom'],
+            app:'./src/app.js'
+          }
+        }
+      }
+      dev:{
+        ...
+        merge: {
+          plugins: [
+            new youplugins()
+          ]
+        }
+      },
+      build: {
+        ...
+        merge: {
+          plugins: [
+            new youplugins()
+          ]
+        }
+      },
+    }
+  ```
+
 ### dev模式
 路径：`build/dev.js`
 
@@ -182,6 +223,9 @@ module.exports = webpack.then(res => {
     return res.dev()
 })
 ````
+
+同样自定义添加配置也可以使用引入插件的**方法二**
+
 ### build模式
 路径：`build/build.js`
 
@@ -209,3 +253,37 @@ module.exports = webpack.then(res => {
 })
 ```
 
+同样自定义添加配置也可以使用引入插件的**方法二**
+
+#### test
+自定义`test`或者其他命令
+
+* `package.json` 中新增命令
+
+  ```javascript
+  "scripts": {
+    "test": "cross-env NODE_ENV=production node build/test.js"
+  },
+  ```
+* `build` 文件夹中新建 `test.js` 文件，内容与 `build.js` 保持一致，例如
+
+  ```javascript
+  let merge = require('webpack-merge')
+  let webpack = require('./index')
+  let offlineCfg = require('../config/offline.js')
+  let webpackOffline = require('@zz/webpack-offline')(offlineCfg)
+
+  module.exports = webpack.then(res => {
+    webpackOffline.then(offCfg => {
+      res.prodWebpackConfig = merge(res.prodWebpackConfig, offCfg, {
+        // 测试相关webpack配置
+        plugins:[
+
+        ]
+      })
+      return true
+    }).then(d => {
+      res.build()
+    })
+  })
+  ```

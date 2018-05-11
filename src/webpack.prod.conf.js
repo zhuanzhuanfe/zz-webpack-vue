@@ -190,4 +190,8 @@ if (config.build.bundleAnalyzerReport) {
   }))
 }
 
-module.exports = webpackConfig
+if (Object.keys(config.build.merge).length) {
+  webpackConfig = merge(webpackConfig, config.build.merge);
+}
+
+module.exports = webpackConfig;

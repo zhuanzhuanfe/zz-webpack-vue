@@ -90,4 +90,8 @@ if(entries && entriesKeys.length && mutiPage) {
   webpackDevConfig.plugins.push(new HtmlWebpackPlugin(htmlConf(pages['index'])));
 }
 
+if (Object.keys(config.dev.merge).length) {
+  webpackDevConfig = merge(webpackDevConfig, config.dev.merge);
+}
+
 module.exports = webpackDevConfig;
