@@ -2,15 +2,11 @@
 module.exports = {
   plugins: {
     cssnano: {
-      preset: [
-        'advanced',
-        {
-          zIndex: false,
-          discardComments: { 
-            removeAll: true 
-          }
-        }
-      ]
+      autoprefixer: false,
+      zindex: false,
+      discardComments: { 
+        removeAll: true 
+      }
     },
     // 'postcss-flexbugs-fixes': {},
     "postcss-import": {},
