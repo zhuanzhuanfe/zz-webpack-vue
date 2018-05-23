@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const merge = require('webpack-merge')
 const config = global._WEBPACK_CONFIG
 const utils = require('./utils')
 const vueLoaderConfig = require('./vue-loader.conf')
